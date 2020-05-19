@@ -48,6 +48,8 @@ export interface ChartQueryParams {
     endpointsOnly?: string
 }
 
+export const entityUrlDelimiter = "+"
+
 const reISODateComponent = new RegExp("\\d{4}-[01]\\d-[0-3]\\d")
 const reISODate = new RegExp(`^(${reISODateComponent.source})$`)
 
@@ -205,7 +207,7 @@ export class ChartUrl implements ObservableUrl {
             JSON.stringify(chart.props.selectedData) !==
                 JSON.stringify(origChartProps.selectedData)
         ) {
-            return chart.data.selectedEntityCodes.join("+")
+            return chart.data.selectedEntityCodes.join(entityUrlDelimiter)
         } else {
             return undefined
         }
@@ -332,7 +334,7 @@ export class ChartUrl implements ObservableUrl {
                 runInAction(() => {
                     if (country) {
                         const entityCodes = country
-                            .split("+")
+                            .split(entityUrlDelimiter)
                             .map(decodeURIComponent)
                         this.chart.data.setSelectedEntitiesByCode(entityCodes)
                     }
