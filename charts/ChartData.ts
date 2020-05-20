@@ -372,11 +372,7 @@ export class ChartData {
     }
 
     @computed get selectedEntityCodes(): string[] {
-        return uniq(
-            this.selectedKeys
-                .map(k => this.lookupKey(k).shortCode)
-                .map(encodeURIComponent)
-        )
+        return uniq(this.selectedKeys.map(k => this.lookupKey(k).shortCode))
     }
 
     @computed get selectedKeys(): EntityDimensionKey[] {
